@@ -1,0 +1,29 @@
+/**/
+
+.career-content {
+	float: left;
+	margin-left: 15px;
+}
+
+.career-block {
+	background: #edf4ed;
+	min-height: 100px;
+	width: 500px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.career-block .year {
+	font-weight: bold;
+	font: Arial;
+	font-size: 2.0em;
+	color: #0073ea;
+}
+
+.career-block .project-desc {
+	visibility: hidden;
+}
+
+.desc-edit {
+	visibility: hidden;
+}
