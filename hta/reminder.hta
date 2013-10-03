@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Reminder</title>
+    <script>
+    window.resizeTo(400, 250);
+    function doRemind() {
+        document.getElementById("btn").setAttribute('disabled', true);
+        var min = parseInt(document.getElementById("min").value) * 1000 * 60;
+        
+        var t = setTimeout("doAlert()",min);   
+    }
+    
+    function doAlert() {
+        alert('You have something to do now.');
+        document.getElementById("btn").setAttribute('disabled', false);
+    }
+  </script>
+</head>
+
+<body>
+    <input type="text" id="min" value="1"/>
+    <input type="button" id="btn" onclick="doRemind();" value="SET"/>
+</body>
+</html>

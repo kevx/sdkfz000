@@ -1,0 +1,77 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Node TRACKING Service</title>
+<script type="text/javascript">
+    var sh = new ActiveXObject("Wscript.Shell");
+    var httpReq = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
+    var timerId = setInterval("ntsCallback()", 3 * 1000);
+    var rows = 0;
+    
+    window.resizeTo(400, 280);
+    window.moveTo(800, 400);
+</script>
+
+<style>
+    textarea {
+        border: 1px solid #006;
+        background: #ffc;
+    }
+    button {
+        border: 1px solid #006;
+        background: #9cf;
+        width: 80px;
+    }
+</style>
+</head>
+
+<body bgcolor="#FFFFFF" scroll="no">
+    stdout:<br/>
+    <textarea type="text" id="stdout" value="" style="width: 360px;" rows="7" cols="50"></textarea>
+    
+    <br/><br/>
+    <button id="btnCancel" onclick="clearInterval(timerId);">CANCEL</button>&nbsp;&nbsp;&nbsp;
+    <button id="btnExit" onclick="window.close();">CLOSE</button>
+</body>
+</html>
+
+<script type="text/javascript">
+
+function ntsCallback() {   
+    var stdout = document.getElementById("stdout");
+    
+    var ret = htaWget("http://sdkfz251.sinaapp.com/nts/gateway.php?action=r&name=kevx-HQ&token=qwe123");
+    if (ret == null) {
+        println(stdout, "network failure!");
+    } else {
+        println(stdout, new Date().toTimeString() + '#' + ret.name + '#' + ret.ip);
+    }
+
+    ret = null;
+    CollectGarbage();
+}
+
+function println(stdout, data) {
+    if (rows >= 30) {
+        stdout.value = "";
+        rows = 0;
+    } else {
+        stdout.value = stdout.value + data + '\r\n';
+        rows++;
+    }
+    stdout.scrollTop = stdout.scrollHeight;
+}
+
+function htaWget(url, localFile) {
+    var ret = null;
+    try {
+        var temp = httpReq.Open("GET", url, false);
+        httpReq.Send();
+        ret = eval("("+ httpReq.ResponseText +")");
+    } catch (e) {
+    }
+    
+    return ret;
+}
+
+</script>

@@ -1,0 +1,78 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>WebVault</title>
+    <hta:application id="oMyApp" 
+    applicationname="monster" 
+    border="none"
+    borderStyle="static"
+    caption="no"
+    icon=""
+    navigable="yes"
+    showintaskbar="no"
+    singleinstance="yes"
+    sysmenu="no"
+    windowstate="normal">
+    <script language="javascript">
+    var movWindow = false;
+    var height = 550;
+    var width = 400;
+    window.resizeTo(width, height);
+    
+    window.moveTo(window.screen.width - width, 0);//window.screen.height - height);
+    var surl = "http://sdkfz251.sinaapp.com/a";
+
+    
+    function startMov() {
+        movWindow = true;
+    }
+    
+    function stopMov() {
+        movWindow = false;
+    }
+
+    function doMov(ev)  
+    {
+        if(movWindow == false) {
+            return;
+        }
+        ev = ev || window.event;  
+        var mouseXY = mousePos(ev);  
+        //window.moveTo(mouseXY.x, mouseXY.y); 
+    }  
+  
+    function mousePos(ev)  
+    {  
+        if (ev.pageX || ev.pageY)  
+        {  
+            return {  
+                x :ev.pageX,  
+                y :ev.pageY  
+            };  
+        }  
+        return {  
+            x :ev.clientX + document.body.scrollLeft - document.body.clientLeft,  
+            y :ev.clientY + document.body.scrollTop - document.body.clientTop  
+        };  
+    }
+    </script>
+    <style>
+    body {
+        background-color: #FF9933;
+        border-style: none;
+        color:#ffffff;
+    }
+    
+    h2 {
+        text-align:right;
+    }
+    </style>
+</head>
+
+<body scroll="NO" onmousedown="startMov();" onmouseup="stopMov();" onmousemove="doMov();">
+    <h2>淘宝女装精品每日特供</h2>
+    <iframe id="if1" src="http://sdkfz251.sinaapp.com/comm/box.html" width="100%" onload="this.height=if1.document.body.scrollHeight" frameborder="0" application="yes"></iframe>
+    <br/>
+    <input type="button" id="btnExit" value="exit" onclick="window.close();"/><br/>
+</body>
+</html>

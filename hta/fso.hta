@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title></title>
+    <script>
+        window.resizeTo(400, 250);  
+        window.moveTo(200,300);
+        var fso = newFso();
+        var stdout = fso.GetStandardStream(1);
+        stdout.WriteLine("FUCK");
+        stdout.Close();
+        function newFso() {
+            return new ActiveXObject("Scripting.FileSystemObject");
+        }
+        
+        fso = null;
+    </script>
+    <HTA:Application ID="oHTA" 
+        Applicationname="myApp" 
+        border="normal" 
+        borderstyle="normal" 
+        INNERBORDER="no"
+        caption="yes" 
+        icon="" 
+        maximizebutton="no" 
+        minimizebutton="no" 
+        showintaskbar="no" 
+        singleinstance="no" 
+        sysmenu="no" 
+        version="1.0" 
+        windowstate="no" 
+        scroll="no"
+        SCROLLFLAT="yes" 
+    >
+    
+    <style>
+        body {
+            BACKGROUND-COLOR : #FFFFFF
+        }
+    </style>
+</head>
+
+<body scroll="no" >
+<input type="button" value="CLOSE" onclick="window.close();">
+</body>
+</html>

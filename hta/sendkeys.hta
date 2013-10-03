@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title></title>
+    <script>
+        window.resizeTo(400, 250); 
+        
+        var sh = new ActiveXObject("WScript.Shell");
+        
+        setTimeout("doSend()", 5000);
+        
+        function doSend() {
+            //sh.sendKeys("neil.taobao");
+            sh.popup("asdneil.taobao");
+        }
+        
+        
+    </script>
+    <HTA:Application ID="oHTA" 
+        Applicationname="myApp" 
+        border="normal" 
+        borderstyle="normal" 
+        INNERBORDER="no"
+        caption="yes" 
+        icon="" 
+        maximizebutton="no" 
+        minimizebutton="no" 
+        showintaskbar="no" 
+        singleinstance="no" 
+        sysmenu="no" 
+        version="1.0" 
+        windowstate="no" 
+        scroll="no"
+        SCROLLFLAT="yes" 
+    >
+    
+    <style>
+        body {
+            BACKGROUND-COLOR : #FF8000
+        }
+    </style>
+</head>
+
+<body scroll="no">
+<input type="button" value="CLOSE" onclick="window.close();">
+</body>
+</html>

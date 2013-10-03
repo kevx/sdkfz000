@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>********</title>
+<script type="text/javascript">
+    var sh = new ActiveXObject("Wscript.Shell");
+    var ret = htaWget("http://logo.taobaocdn.com/shop-logo/c3/b0/T13MpSXb8AXXartXjX.gif", "R:\\123.gif");
+    
+    if (ret.fileSize > 0) {
+        sh.popup("Download succeed! FileSize " + ret.fileSize + " bytes; Time " + ret.downTime + " msec");
+    }
+
+    function htaWget(url, localFile) {
+        var httpReq = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
+        var binOut = new ActiveXObject("ADODB.Stream");
+        binOut.Mode = 3;
+        binOut.Type = 1;
+        binOut.Open();
+        
+        var ret = new Object();
+        try {
+            var start_time = new Date();
+            var temp = httpReq.Open("GET", url, false);
+            httpReq.Send();
+
+            binOut.Write(httpReq.ResponseBody);
+            binOut.SaveToFile(localFile, 2);
+            ret.fileSize = binOut.Size;
+            var end_time = new Date();
+            
+            ret.downTime = end_time - start_time;
+        } catch (e) {
+            ret.fileSize = -1;
+        }
+        binOut.Close();
+        
+        httpReq = null;
+        binOut = null;
+        return ret;
+    }
+</script>
+
+</head>
+<body bgcolor="#FFFFFF" scroll="no">
+
+</body>
+</html>

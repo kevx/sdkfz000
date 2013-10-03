@@ -1,0 +1,73 @@
+<html>
+<head>
+    <title></title>
+    <script>
+        window.resizeTo(400, 250);  
+    </script>
+	<script src="header.js" type="text/javascript"></script>
+    <HTA:Application ID="oHTA" 
+        Applicationname="iResizer" 
+        border="thin" 
+        borderstyle="normal" 
+        INNERBORDER="no"
+        caption="yes" 
+        icon="" 
+        maximizebutton="no" 
+        minimizebutton="no" 
+        showintaskbar="yes" 
+        singleinstance="no" 
+        sysmenu="no" 
+        version="1.0" 
+        windowstate="no" 
+        scroll="no"
+        SCROLLFLAT="yes" 
+    >
+    
+    <style>
+        body {
+            BACKGROUND-COLOR : #FFFFFF
+        }
+    </style>
+	
+	<script>
+	var inPath = null;
+	var outPath = null;
+	
+	var bin = "D:\\utils\\imagick\\convert.exe";
+	var zzz = ZZZ.init();
+	function chooseFolder() {
+		var objSrc = zzz.shellapp.BrowseForFolder(0, 'Choose folder:', 0, '');   
+		if(objSrc != null) {   
+			inPath = objSrc.Items().Item().Path;
+			outPath = inPath + "\\new";
+			zzz.fso.CreateFolder(outPath);
+			document.getElementById("INPUT-FOLDER").value = inPath;
+			document.getElementById("OUTPUT-FOLDER").value= outPath;
+		}
+	}
+	
+	function fork(f) {
+		var fname = zzz.fso.GetFileName(f);
+		var param = " -resize " + 1024 + " " + f + " " + outPath + "\\" + fname;
+		var cmd = bin + param;
+		zzz.sh.Run(cmd, 0, false);
+	}
+	
+	function doCmd() {
+		if (inPath == null) return;
+		var ret = zzz.walkFolder(inPath, fork);
+		if (ret >= 0) alert("all done!")
+		else alert("error!");
+	}
+	</script>
+</head>
+
+<body scroll="no">
+	<button onclick="chooseFolder();">Photo folder</button>
+	<input id="INPUT-FOLDER" type="text" value="" />
+	<button onclick="doCmd();">Do It!</button>
+	<hr/>
+	<input id="OUTPUT-FOLDER" type="text" value="" readonly="readonly"/><br/>
+	<input type="button" value="CLOSE" onclick="window.close();">
+</body>
+</html>
