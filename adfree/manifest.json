@@ -1,0 +1,26 @@
+{
+    "manifest_version": 2,
+
+    "name": "ADFree",
+    "description": "ADFree For Chrome",
+    "version": "1.0",
+    "icons": {
+        "16": "img/main16.png",
+        "48": "img/main48.png",
+        "128": "img/main128.png"
+    },
+    
+    "permissions": [
+        "notifications",
+        "background",
+        "<all_urls>",
+        "tabs"
+    ],
+
+    "background_page": "daemon.html",
+    
+    "browser_action": {
+        "default_icon": "img/main.png",
+        "default_popup": "popup.html"
+    }
+}
