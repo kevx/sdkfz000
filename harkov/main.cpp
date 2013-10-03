@@ -66,7 +66,7 @@ void init_as_installer()
 
 int main(int argc, char **argv)
 {
-	wstring logFile(L"F:\\test\\my.log");
+	wstring logFile(L"my.log");
 	Log4c::setLogFile(logFile);
 	
 	if (argc > 1) {

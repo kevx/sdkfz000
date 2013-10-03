@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include <string>
+#include <windows.h>
 #include <wininet.h>
 
 class HttpGateway

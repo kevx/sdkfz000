@@ -38,5 +38,6 @@ void init_as_test()
 	//test_http_gw();
 	//test_file_walker();
 	wstring s = query_mac_addr();
-	Log4c::Instance()->log(str_format(L"%d_%s\n", ::GetTickCount(), s.c_str()));
+	Log4c::Instance()->log(s);
+	test_crypto();
 }

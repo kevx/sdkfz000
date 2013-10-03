@@ -1,0 +1,51 @@
+# Project: harkov
+# Makefile created by Dev-C++ 5.4.2
+
+CPP      = g++.exe -D__DEBUG__
+CC       = gcc.exe -D__DEBUG__
+WINDRES  = windres.exe
+RES      = debug/harkov_private.res
+OBJ      = debug/crypto.o debug/file_walker.o debug/http_gateway.o debug/log4c.o debug/main.o debug/unittest.o debug/utils.o $(RES)
+LINKOBJ  = debug/crypto.o debug/file_walker.o debug/http_gateway.o debug/log4c.o debug/main.o debug/unittest.o debug/utils.o $(RES)
+LIBS     = -L"D:/local/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc -lstdc++ -lwininet -liphlpapi  -m32 -g3
+INCS     = -I"D:/local/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include"
+CXXINCS  = -I"D:/local/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include"
+BIN      = debug/harkov.exe
+CXXFLAGS = $(CXXINCS) -m32 -g3
+CFLAGS   = $(INCS) -m32 -g3
+RM       = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+debug/crypto.o: crypto.cpp
+	$(CPP) -c crypto.cpp -o debug/crypto.o $(CXXFLAGS)
+
+debug/file_walker.o: file_walker.cpp
+	$(CPP) -c file_walker.cpp -o debug/file_walker.o $(CXXFLAGS)
+
+debug/http_gateway.o: http_gateway.cpp
+	$(CPP) -c http_gateway.cpp -o debug/http_gateway.o $(CXXFLAGS)
+
+debug/log4c.o: log4c.cpp
+	$(CPP) -c log4c.cpp -o debug/log4c.o $(CXXFLAGS)
+
+debug/main.o: main.cpp
+	$(CPP) -c main.cpp -o debug/main.o $(CXXFLAGS)
+
+debug/unittest.o: unittest.cpp
+	$(CPP) -c unittest.cpp -o debug/unittest.o $(CXXFLAGS)
+
+debug/utils.o: utils.cpp
+	$(CPP) -c utils.cpp -o debug/utils.o $(CXXFLAGS)
+
+debug/harkov_private.res: harkov_private.rc 
+	$(WINDRES) -i harkov_private.rc -F pe-i386 --input-format=rc -o debug/harkov_private.res -O coff 

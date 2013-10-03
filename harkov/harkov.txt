@@ -1,1 +1,0 @@
-./Debug/main.o ./Debug/file_walker.o ./Debug/utils.o ./Debug/http_gateway.o ./Debug/crypto.o ./Debug/unittest.o ./Debug/log4c.o   

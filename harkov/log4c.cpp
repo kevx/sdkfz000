@@ -24,7 +24,7 @@ void Log4c::flush()
 	FILE* f = _wfopen(_logFile.c_str(), L"wt+");
 	for (size_t i = 0; i < _internalBuff.size(); i++) {
 		wstring oneLine = _internalBuff[i];
-		fwprintf(f, L"%s\n", oneLine.c_str());
+		fwprintf(f, L"%ls\n", oneLine.c_str());
 	}
 	fclose(f);
 	_internalBuff.clear();
