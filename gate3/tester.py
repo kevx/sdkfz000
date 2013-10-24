@@ -6,9 +6,9 @@ import jumper-utils
         
 if __name__=='__main__':
     jumpUtils = JumperUtils(
-    'beitang.xz', 
-    'taobao1234', 
-    'login1.cm4.taobao.org'
+    'abc', 
+    '123', 
+    'login1'
     )
     
     jumpUtils.download('/home/beitang.xz/test','d:/tmp')
