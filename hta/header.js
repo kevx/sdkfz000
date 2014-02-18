@@ -1,9 +1,10 @@
-var ZZZ = {
+var HTA = {
 	shellapp: null,/*shell application object*/
 	fso: null,/*file system object*/
 	sh: null,/*wscript shell object*/
 	www: null,/*http request object*/
 	iostrm: null, /*binary stream io object*/
+	comm: null,
 	
 	init: function() {
 		this.shellapp = new ActiveXObject("Shell.Application");
@@ -15,6 +16,10 @@ var ZZZ = {
 	initWWW: function () {
 		this.www = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
 		this.iostrm = new ActiveXObject("ADODB.Stream");
+	},
+	
+	initComm: function () {
+		this.comm = new ActiveXObject("MSCOMMLib.MSComm");
 	},
 	
 	walkFolder: function (folder, callback) {
@@ -62,6 +67,23 @@ var ZZZ = {
         return ret;
     },
 	
+	sleep: function () {
+		this.sh.Run('ping -n 1 127.0.0.1', 0, true);
+	},
+	
+	sendSms: function (target, msg) {
+		if (this.comm != null && this.comm.PortOpen == true) {
+			this.comm.Output = "AT+CMGF=1\r";
+			this.sleep();
+			this.comm.Output = 'AT+CMGS="' + target + '"\r';
+			this.sleep();
+			this.comm.Output = msg + '\x1A\r';
+		}
+	},
+	
 	clear: function () {
+		if (this.comm.PortOpen == true) {
+			HTA.comm.PortOpen = false;
+		}
 	}
 };
