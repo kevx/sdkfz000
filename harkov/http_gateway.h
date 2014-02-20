@@ -13,13 +13,14 @@ public:
 	~HttpGateway();
 
 	bool fetch(wstring& url, string& localfile);
-	
+	bool upload(wstring& server, wstring& uri, wstring& local);
 private:
-	HINTERNET _inetSession;
+	HINTERNET inetCore;
 	
 	const static wstring _UA;
 	
 	void writeToLocal(HINTERNET req, string& localfile);
+	void writeToRemote(HINTERNET req, wstring& localfile);
 };
 
 #endif // HTTPGATEWAY_H

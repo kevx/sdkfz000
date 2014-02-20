@@ -7,6 +7,8 @@
 #include <memory.h>
 #include <Iphlpapi.h>
 #include <stdio.h>
+#include <sys/stat.h>
+
 
 bool str_endswith(const wstring &s, const wstring &sfx) {
 	size_t p = s.rfind(sfx);
@@ -46,6 +48,28 @@ wstring str_format(const wchar_t* fmt, ...) {
     return str;
 }
 
+FILE* wfopen(const wchar_t* filename, const wchar_t* mode) {  
+    char fn[MAX_PATH];  
+    char m[MAX_PATH];  
+    wcstombs(fn, filename, MAX_PATH);  
+    wcstombs(m, mode, MAX_PATH);  
+    return fopen(fn, m);  
+}  
+
+long wfsize(const wchar_t *filename) {
+	struct stat st; 
+    if (wstat(filename, &st) == 0)
+        return st.st_size;
+    return -1;
+}
+
+long fsize(const char *filename) {
+    struct stat st; 
+    if (stat(filename, &st) == 0)
+        return st.st_size;
+    return -1; 
+}
+
 wstring query_hostname() 
 {
 	unsigned long bufLen = MAX_COMPUTERNAME_LENGTH + 1;
@@ -55,8 +79,7 @@ wstring query_hostname()
 	return wstring(buf);
 }
 
-wstring query_mac_addr()
-{
+string query_mac_addr() {
 	IP_ADAPTER_INFO adapterInfo[16];
 	DWORD dwBufLen = sizeof(adapterInfo);
 	DWORD dwStatus = GetAdaptersInfo(adapterInfo, &dwBufLen);
@@ -64,7 +87,6 @@ wstring query_mac_addr()
 	const char* defaultMac = "00-00-00-00-00-00";
 	string s(defaultMac);
 	char buf[5];
-	
 	do {
 		if (pAdapterInfo->Type == MIB_IF_TYPE_ETHERNET || 
 			pAdapterInfo->Type == IF_TYPE_IEEE80211) 
@@ -85,6 +107,11 @@ wstring query_mac_addr()
 		}
 		pAdapterInfo = pAdapterInfo->Next;
 	} while (pAdapterInfo);
-	
+	return s;
+}
+
+wstring query_mac_addrw()
+{
+	string s = query_mac_addr();
 	return std::wstring(s.begin(), s.end());
 }

@@ -8,14 +8,14 @@
 void test_http_gw() {
 	HttpGateway hg;
 	wstring s(L"http://myvcr.googlecode.com/files/myvcr_v1005.zip");
-	string f("Q:\\hg.html");
+	string f("d:\\tmp\\hg.bin");
 	hg.fetch(s, f);
 }
 
 void test_file_walker() {
-	FileWalker fw;
+	FileWalker fw(0);
 	Crypto c;
-	fw.find(L"F:\\test", 0);
+	fw.find(L"d:\\tmp", 0);
 	
 	vector<wstring> ret = fw.getResults();
 	for (size_t i = 0; i < ret.size(); i++) {
@@ -37,7 +37,7 @@ void init_as_test()
 {
 	//test_http_gw();
 	//test_file_walker();
-	wstring s = query_mac_addr();
-	Log4c::Instance()->log(s);
-	test_crypto();
+	//wstring s = query_mac_addr();
+	//Log4c::Instance()->log(s);
+	//test_crypto();
 }

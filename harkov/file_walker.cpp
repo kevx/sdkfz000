@@ -6,11 +6,13 @@
  * File Walker
  * 06/15/2013
  */
-const int FileWalker::DEFAULT_DEPTH = 10;
+const int FileWalker::DEFAULT_DEPTH = 5;
 
-FileWalker::FileWalker()
+FileWalker::FileWalker(long delay)
 {
 	_maxDepth = (DEFAULT_DEPTH);
+	_delay = delay;
+	_delay = -1;
 	wstring doc(L".doc");
 	wstring xls(L".xls");
 	wstring docx(L".docx");
@@ -22,9 +24,7 @@ FileWalker::FileWalker()
 	_exts.push_back(xlsx);
 }
 
-FileWalker::~FileWalker()
-{
-}
+FileWalker::~FileWalker() {}
 
 void FileWalker::find(const wchar_t* root)
 {
@@ -41,14 +41,18 @@ void FileWalker::find(const wchar_t* root, int depth)
 	path.append(L"\\*.*");
 	
 	HANDLE hFind = ::FindFirstFileW(path.c_str(), &findData);
-	if(INVALID_HANDLE_VALUE == hFind) return;
+	if (INVALID_HANDLE_VALUE == hFind) return;
+	if (_delay > 0) ::Sleep(_delay);
 	
 	while(true) {
 		sFile.clear();
 		sFile.append(root);
 		sFile.append(L"\\");
 		sFile.append(findData.cFileName);
-		if(findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) { 
+		
+		//ignore windows dir
+		if (sFile.find(L"C:\\Windows") != std::wstring::npos) break;
+		if (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) { 
 			if(findData.cFileName[0] != '.') {
 				find(sFile.c_str(), ++depth);
 			}
@@ -62,8 +66,13 @@ void FileWalker::find(const wchar_t* root, int depth)
 		
 		if(!::FindNextFileW(hFind, &findData)) break; 
 	}
+	::FindClose(hFind);
 }
 
 vector<wstring> FileWalker::getResults() {
 	return _files;
+}
+
+void FileWalker::clear() {
+	_files.clear();
 }

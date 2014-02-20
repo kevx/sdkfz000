@@ -1,24 +1,23 @@
 # Project: harkov
-# Makefile created by Dev-C++ 5.4.2
+# Makefile created by Dev-C++ 5.6.1
 
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
 RES      = debug/harkov_private.res
-OBJ      = debug/crypto.o debug/file_walker.o debug/http_gateway.o debug/log4c.o debug/main.o debug/unittest.o debug/utils.o $(RES)
-LINKOBJ  = debug/crypto.o debug/file_walker.o debug/http_gateway.o debug/log4c.o debug/main.o debug/unittest.o debug/utils.o $(RES)
-LIBS     = -L"D:/local/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc -lstdc++ -lwininet -liphlpapi  -m32 -g3
-INCS     = -I"D:/local/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include"
-CXXINCS  = -I"D:/local/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include"
+OBJ      = debug/crypto.o debug/file_walker.o debug/http_gateway.o debug/log4c.o debug/main.o debug/unittest.o debug/utils.o debug/daemon_walker.o $(RES)
+LINKOBJ  = debug/crypto.o debug/file_walker.o debug/http_gateway.o debug/log4c.o debug/main.o debug/unittest.o debug/utils.o debug/daemon_walker.o $(RES)
+LIBS     = -L"D:/bin/Dev-Cpp/MinGW64/lib32" -L"D:/bin/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc -lstdc++ -lwininet -liphlpapi -m32 -g3
+INCS     = -I"D:/bin/Dev-Cpp/MinGW64/include" -I"D:/bin/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/bin/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include"
+CXXINCS  = -I"D:/bin/Dev-Cpp/MinGW64/include" -I"D:/bin/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/bin/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include" -I"D:/bin/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.8.1/include/c++"
 BIN      = debug/harkov.exe
 CXXFLAGS = $(CXXINCS) -m32 -g3
 CFLAGS   = $(INCS) -m32 -g3
-RM       = rm -f
+RM       = rm.exe -f
 
 .PHONY: all all-before all-after clean clean-custom
 
 all: all-before $(BIN) all-after
-
 
 clean: clean-custom
 	${RM} $(OBJ) $(BIN)
@@ -46,6 +45,9 @@ debug/unittest.o: unittest.cpp
 
 debug/utils.o: utils.cpp
 	$(CPP) -c utils.cpp -o debug/utils.o $(CXXFLAGS)
+
+debug/daemon_walker.o: daemon_walker.cpp
+	$(CPP) -c daemon_walker.cpp -o debug/daemon_walker.o $(CXXFLAGS)
 
 debug/harkov_private.res: harkov_private.rc 
 	$(WINDRES) -i harkov_private.rc -F pe-i386 --input-format=rc -o debug/harkov_private.res -O coff 

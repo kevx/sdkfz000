@@ -29,7 +29,7 @@ IncludeVersionInfo=1
 SupportXPThemes=0
 CompilerSet=4
 CompilerSettings=0000000100000000001000000
-UnitCount=13
+UnitCount=15
 
 [VersionInfo]
 Major=1
@@ -178,4 +178,24 @@ Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=$(CPP) -c utils.cpp -o debug/utils.o $(CXXFLAGS)
+
+[Unit14]
+FileName=daemon_walker.cpp
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit15]
+FileName=daemon.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
 
